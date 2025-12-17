@@ -86,6 +86,11 @@ pipeline {
                 '''
             }
         }
+        stage('Approval'){
+            timeout(time: 1, unit: 'MINUTES') {
+            input message: 'Deploy to Prod?', ok: 'Deploy'
+            }
+        }
         stage('Prod Deploy'){
             agent{
                 docker{
