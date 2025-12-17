@@ -69,7 +69,7 @@ pipeline {
                 }
             }
         }
-         stage('Staging Deploy'){
+        stage('Staging Deploy'){
             agent{
                 docker{
                     image 'node:18-alpine'
@@ -87,8 +87,10 @@ pipeline {
             }
         }
         stage('Approval'){
-            timeout(time: 1, unit: 'MINUTES') {
-            input message: 'Deploy to Prod?', ok: 'Deploy'
+            steps{
+                timeout(time: 1, unit: 'MINUTES') {
+                input message: 'Deploy to Prod?', ok: 'Deploy'
+                }
             }
         }
         stage('Prod Deploy'){
